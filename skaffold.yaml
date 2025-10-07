@@ -8,10 +8,10 @@ build:
       context: frontend
       docker:
         dockerfile: Dockerfile
-    # - image: bilal157/sponect-backend
-    #   context: backend
-    #   docker:
-    #     dockerfile: Dockerfile
+    - image: bilal157/sponect-backend
+      context: backend
+      docker:
+        dockerfile: Dockerfile
 deploy:
   kubectl:
     manifests:
