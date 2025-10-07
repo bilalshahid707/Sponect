@@ -21,7 +21,7 @@ export const StepCard: React.FC<StepCardProps> = ({
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: false, amount: 0.3 }}
     >
       <div
         className={`flex flex-col ${
