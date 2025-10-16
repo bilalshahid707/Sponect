@@ -12,7 +12,9 @@
     "skipLibCheck": true,
 
     "sourceMap": true,
-    "declaration": true
+    "declaration": true,
+
+    "isolatedModules": true
   },
   "include": ["src"]
 }

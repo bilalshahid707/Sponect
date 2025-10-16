@@ -18,13 +18,14 @@ spec:
 
 ---
 apiVersion: v1
-kind: Service 
+kind: Service
 metadata:
   name: sponect-backend-mongo-service
 spec:
-  selector: 
+  selector:
     app: sponect-backend-mongo
   ports:
-    - protocol: TCP 
+    - protocol: TCP
       port: 27017
       targetPort: 27017
+  type: ClusterIP

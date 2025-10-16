@@ -16,6 +16,11 @@ spec:
         - name: sponect-backend
           image: bilal157/sponect-backend:latest
 
+          envFrom:
+            - secretRef:
+                name: backend-secrets
+
+
 ---
 apiVersion: v1
 kind: Service
