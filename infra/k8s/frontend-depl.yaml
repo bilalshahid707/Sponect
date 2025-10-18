@@ -17,6 +17,10 @@ spec:
           image: bilal157/sponect-frontend
           ports:
             - containerPort: 5173
+          
+          envFrom:
+            - secretRef:
+                name: frontend-secrets
 ---
 apiVersion: v1
 kind: Service
