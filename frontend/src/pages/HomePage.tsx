@@ -8,11 +8,12 @@ import {
   brandSteps,
   FadeInWhenVisible,
   InfoModal,
+  BasicAlert
 } from "../imports";
 import { motion } from "motion/react";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import Alert from "@mui/material/Alert"
+
 
 export const HomePage: React.FC = () => {
   const API_URL = import.meta.env.VITE_APP_API_URL;
@@ -45,12 +46,12 @@ export const HomePage: React.FC = () => {
     cheeziousLogo,
   ];
 
+  const [modalMsg,setModalMsg] = useState<string | null>(null)
+  const [alertMsg,setAlertMsg] = useState<string | null>(null)
+
   const [formData, setFormData] = useState({
     email: "",
   });
-
-  const [modalMsg,setModalMsg] = useState<string | null>(null)
-  const [alertMsg,setAlertMsg] = useState<string | null>(null)
 
   const handleInputChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -61,12 +62,12 @@ export const HomePage: React.FC = () => {
   };
 
   const mutation = useMutation({
-    mutationFn: (data: { email: string }) => {
-      const response = axios.post(`${API_URL}/waitlist/new-member`, data);
+    mutationFn: async (data: { email: string }) => {
+      const response = await axios.post(`${API_URL}/waitlist/new-member`, data);
       return response;
     },
     onSuccess:()=>{
-      setModalMsg("You have been added to waitlist")
+      setModalMsg("You have been added to waitlist!")
     },
     onError:(error:AxiosError<APIError>)=>{
       setAlertMsg(error.response?.data?.message || error.message)
@@ -81,7 +82,7 @@ export const HomePage: React.FC = () => {
   return (
     <>
       {modalMsg && <InfoModal message={modalMsg}/>}
-      {alertMsg && <Alert severity="error">{alertMsg}</Alert>}
+      {alertMsg && <BasicAlert message={alertMsg} severity="error"/>}
       {/* Hero Section */}
       <section className="section">
         <div className="container gradient-bg overflow-hidden">
@@ -243,7 +244,7 @@ export const HomePage: React.FC = () => {
                 <button
                   type="submit"
                   className={`btn-primary sm:!rounded-l-none ${mutation.isPending?"cursor-not-allowed":"cursor-pointer"}`}
-                  disabled={false}
+                  disabled={mutation.isPending}
                   
                 >
                   Join Waitlist

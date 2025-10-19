@@ -1,36 +1,16 @@
 import React, { useState } from "react";
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+
 import waitlistSuccess from "../assets/waitlistSuccess.webp"
+
 interface ModalProps{
     message:string
 }
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: '#ffffff',
-  borderRadius: '1rem',
-  boxShadow: 24,
-  p: 4,
-  display:'flex',
-  justifyContent:'center',
-  alignItems:'center',
-  flexDirection: 'column',
-  gap:2
-};
 
 export const InfoModal:React.FC<ModalProps> = ({message}:ModalProps)=> {
   const [open, setOpen] = useState(true);
-  const handleClose = () => setOpen(true);
-
-  setTimeout(() => {
-    setOpen(false)
-  }, 3000);
+  const handleClose = () => setOpen(false);
 
   return (
     <div>
@@ -40,12 +20,13 @@ export const InfoModal:React.FC<ModalProps> = ({message}:ModalProps)=> {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <img src={waitlistSuccess} alt="" />
-          <Typography id="modal-modal-description" sx={{ mt: 2 ,color:'#111827',textAlign:'center',fontStyle:'bold'}}>
+        <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[30%] rounded-4xl bg-white p-md flex flex-col items-center justify-center gap-md">
+          <img src={waitlistSuccess} className="w-full h-full" alt="waitlist" />
+          <h1 className="heading-teriary font-bold text-dark">
             {message}
-          </Typography>
-        </Box>
+          </h1>
+          <button onClick={handleClose} className="btn-primary text-center cursor-pointer">Got it!</button>
+        </div>
       </Modal>
     </div>
   );
