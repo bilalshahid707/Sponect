@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-depl
+  name: sponect-frontend-deployment
 spec:
   replicas: 1
   selector:
@@ -14,9 +14,11 @@ spec:
     spec:
       containers:
         - name: sponect-frontend
-          image: bilal157/sponect-frontend
-          ports:
-            - containerPort: 5173
+          image: bilal157/sponect-frontend:latest
+          
+          envFrom:
+            - secretRef:
+                name: frontend-secrets
 ---
 apiVersion: v1
 kind: Service
@@ -27,7 +29,6 @@ spec:
   selector:
     app: sponect-frontend
   ports:
-    - name: frontend
-      protocol: TCP
+    - protocol: TCP
       port: 5173
       targetPort: 5173

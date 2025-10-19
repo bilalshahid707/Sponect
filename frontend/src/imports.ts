@@ -3,6 +3,8 @@ export {Header} from './components/Header';
 export {Footer} from './components/Footer';
 export {StepCard} from "./components/StepCard"
 export {FadeInWhenVisible} from './components/FadeWhenVisible';
+export {InfoModal} from "./components/InfoModal"
+export {BasicAlert} from "./components/BasicAlert"
 // Pages
 export {HomePage} from './pages/HomePage'
 // export * from './pages/Home';

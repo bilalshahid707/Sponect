@@ -7,16 +7,30 @@ import {
   applicantSteps,
   brandSteps,
   FadeInWhenVisible,
+  InfoModal,
+  BasicAlert
 } from "../imports";
 import { motion } from "motion/react";
+import { useMutation } from "@tanstack/react-query";
+import axios, { AxiosError } from "axios";
+
 
 export const HomePage: React.FC = () => {
+  const API_URL = import.meta.env.VITE_APP_API_URL;
+  
+  interface APIError {
+    status:string,
+    message:string
+  }
+
+  // Managing how it works section state
   const [translate, setTranslate] = useState("0");
   const [activeTab, setActiveTab] = useState<"applicant" | "brand">(
     "applicant"
   );
   const steps = activeTab === "applicant" ? applicantSteps : brandSteps;
 
+  // Logos for trusted by section
   const logos = [
     cheeziousLogo,
     cheeziousLogo,
@@ -32,8 +46,43 @@ export const HomePage: React.FC = () => {
     cheeziousLogo,
   ];
 
+  const [modalMsg,setModalMsg] = useState<string | null>(null)
+  const [alertMsg,setAlertMsg] = useState<string | null>(null)
+
+  const [formData, setFormData] = useState({
+    email: "",
+  });
+
+  const handleInputChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const mutation = useMutation({
+    mutationFn: async (data: { email: string }) => {
+      const response = await axios.post(`${API_URL}/waitlist/new-member`, data);
+      return response;
+    },
+    onSuccess:()=>{
+      setModalMsg("You have been added to waitlist!")
+    },
+    onError:(error:AxiosError<APIError>)=>{
+      setAlertMsg(error.response?.data?.message || error.message)
+    }
+  });
+
+  const handleSubmit = (event:React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    mutation.mutate(formData);
+  };
+
   return (
     <>
+      {modalMsg && <InfoModal message={modalMsg}/>}
+      {alertMsg && <BasicAlert message={alertMsg} severity="error"/>}
       {/* Hero Section */}
       <section className="section">
         <div className="container gradient-bg overflow-hidden">
@@ -67,10 +116,7 @@ export const HomePage: React.FC = () => {
             <div className="w-full lg:w-[40%] flex justify-center z-30 relative">
               <FadeInWhenVisible>
                 <div>
-                  <img
-                    src={heroBanner}
-                    className="object-cover w-full"
-                  />
+                  <img src={heroBanner} className="object-cover w-full" />
                 </div>
               </FadeInWhenVisible>
             </div>
@@ -185,16 +231,21 @@ export const HomePage: React.FC = () => {
 
           <FadeInWhenVisible>
             <div className="waitlist-form flex items-center justify-center mt-[var(--space-lg)]">
-              <form className="flex flex-col sm:flex-row gap-3 sm:gap-0 w-full max-w-md rounded-2xl overflow-hidden">
+              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 sm:gap-0 w-full max-w-md rounded-2xl overflow-hidden">
                 <input
                   id="email"
                   type="email"
+                  name="email"
+                  required
+                  onChange={handleInputChange}
                   placeholder="Enter your email"
                   className="p-[var(--space-md)] rounded-2xl sm:rounded-l-2xl sm:rounded-r-none border-none focus:border-none focus:outline-none bg-white flex-grow"
                 />
                 <button
                   type="submit"
-                  className="btn-primary sm:!rounded-l-none cursor-pointer"
+                  className={`btn-primary sm:!rounded-l-none ${mutation.isPending?"cursor-not-allowed":"cursor-pointer"}`}
+                  disabled={mutation.isPending}
+                  
                 >
                   Join Waitlist
                 </button>

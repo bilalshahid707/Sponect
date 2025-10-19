@@ -120,17 +120,3 @@ html {
 .border-accent-shape {
     @apply absolute rounded-3xl top-[12.5%] right-[12.5%] w-full h-full -z-10;
 }
-@keyframes marquee {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%); /* move left by half since we’ll duplicate content */
-  }
-}
-
-.marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 20s linear infinite;
-}
