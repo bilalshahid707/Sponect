@@ -79,10 +79,11 @@ export const HomePage: React.FC = () => {
     mutation.mutate(formData);
   };
 
+
   return (
     <>
-      {modalMsg && <InfoModal message={modalMsg}/>}
-      {alertMsg && <BasicAlert message={alertMsg} severity="error"/>}
+      {modalMsg && <InfoModal setModalMsg={setModalMsg} message={modalMsg} />}
+      {alertMsg && <BasicAlert setAlertMsg={setAlertMsg} message={alertMsg} severity="error"/>}
       {/* Hero Section */}
       <section className="section">
         <div className="container gradient-bg overflow-hidden">

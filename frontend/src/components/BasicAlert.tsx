@@ -3,20 +3,24 @@ import Alert from "@mui/material/Alert"
 import Collapse from "@mui/material/Collapse"
 
 interface AlertProps {
-  message:string,
-  severity:"error"|"success"
+  message:string | null,
+  severity:"error"|"success",
+  setAlertMsg:React.Dispatch<React.SetStateAction<string | null>>
 }
-export const BasicAlert:React.FC<AlertProps> = ({message,severity}) => {
+export const BasicAlert:React.FC<AlertProps> = ({message,severity,setAlertMsg}) => {
 
   const [open,setOpen] = useState(true)
-
-  setTimeout(() => {
+  const handleClose = () => {
+    setAlertMsg(null)
     setOpen(false)
+  };
+  setTimeout(() => {
+    handleClose()
   }, 5000);
   return (
     <>
     <Collapse in={open} >
-    <Alert onClose={()=>{setOpen(false)}} variant='filled' className="w-max rounded-4xl fixed left-[50%] translate-x-[-50%] top-5 z-50" severity={severity}>{message}</Alert>
+    <Alert onClose={handleClose} variant='filled' className="w-max rounded-4xl fixed left-[50%] translate-x-[-50%] top-5 z-50" severity={severity}>{message}</Alert>
     </Collapse>
     </>
   )
