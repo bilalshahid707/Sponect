@@ -18,6 +18,12 @@
   --color-dark-light: #374151; /* For lighter backgrounds */
   --color-dark-lighter: #4b5563; /* For subtle accents */
 
+  --color-white: #ffffff; /* Pure white - primary light color */
+  --color-white-hover: #f9fafb; /* Slightly darker for hover states */
+  --color-white-light: #f3f4f6; /* Soft gray-white for light backgrounds */
+  --color-white-lighter: #e5e7eb; /* Subtle accent or border shade */
+
+
   /* ===== Spacing Scale ===== */
   --space-sm: 0.5rem;   /* ~8px */
   --space-md: 1rem;     /* ~16px */
@@ -102,7 +108,7 @@ html {
 }
 
 .heading-secondary{
-  @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-snug text-center
+  @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-snug
 }
 
 .heading-tertiary {
@@ -110,7 +116,7 @@ html {
 }
 
 .body-text{
-  @apply text-base sm:text-lg md:text-xl max-w-xl leading-relaxed
+  @apply text-base sm:text-lg md:text-xl leading-relaxed
 }
 
 .btn-primary{
@@ -119,4 +125,20 @@ html {
 
 .border-accent-shape {
     @apply absolute rounded-3xl top-[12.5%] right-[12.5%] w-full h-full -z-10;
+}
+
+.form-field{
+  @apply flex flex-col gap-[var(--space-sm)] w-full
+}
+
+.input-field{
+  @apply flex items-center rounded-xl pr-[var(--space-sm)] pl-[var(--space-sm)]  bg-white-lighter w-full
+}
+
+.input-label{
+  @apply text-base sm:text-lg md:text-xl leading-relaxed  text-dark
+}
+
+.input{
+  @apply p-[var(--space-md)] border-none focus:border-none focus:outline-none bg-transparent flex-grow text-sm md:text-lg leading-relaxed
 }

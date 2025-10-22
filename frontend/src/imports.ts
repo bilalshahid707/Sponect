@@ -7,6 +7,8 @@ export {InfoModal} from "./components/InfoModal"
 export {BasicAlert} from "./components/BasicAlert"
 // Pages
 export {HomePage} from './pages/HomePage'
+export {SignupPage} from "./pages/SignupPage"
+export {LoginPage} from "./pages/LoginPage"
 // export * from './pages/Home';
 // export * from './pages/About';
 // export * from './pages/Login';

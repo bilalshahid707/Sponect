@@ -1,4 +1,4 @@
-import { Header,HomePage,Footer } from './imports'
+import { Header,HomePage,SignupPage,LoginPage,Footer } from './imports'
 import './App.css'
 
 function App() {
@@ -6,7 +6,9 @@ function App() {
   return (
     <>
       <Header/>
-      <HomePage/>
+      {/* <HomePage/> */}
+      <SignupPage/>
+      {/* <LoginPage/> */}
       <Footer/>
     </>
   )
