@@ -1,15 +1,13 @@
-import express from "express"
-import cors from "cors"
-import helmet from "helmet"
-import sanitize  from "express-mongo-sanitize"
-import cookieParser from "cookie-parser"
-import errorHandler from "./middleware/errorMiddleware"
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
+const cookieParser = require("cookie-parser");
+const errorHandler = require("./middleware/errorMiddleware");
 
 // Importing routers
-import waitListRouter from "./routes/waitListRoute"
+const authRouter = require("./routes/auth.routes");
 
-export const app = express()
-
+const app = express()
 
 app.use(cors({
     origin: "*",
@@ -31,9 +29,10 @@ app.use(helmet())
 
 
 // Using routers
-app.use("/api/v1/waitlist",waitListRouter)
+// app.use("/api/v1/waitlist",waitListRouter)
+app.use("/api/v1/auth",authRouter)
 
 
 app.use(errorHandler)
 
-export default app
+module.exports = app

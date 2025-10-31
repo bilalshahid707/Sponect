@@ -1,8 +1,9 @@
-import app from "./app";
-import mongoose from "mongoose"
-import dotenv from "dotenv"
-
+const dotenv = require('dotenv')
 dotenv.config()
+
+const app = require('./app')
+const mongoose = require('mongoose')
+const {sequelize} = require('./config/sequelize')
 
 const startServer = async()=>{
     app.listen(process.env.PORT || 3000,()=>{
@@ -14,27 +15,24 @@ const startServer = async()=>{
     })  
 }
 
-// Database connection
-const mongoUri = process.env.MONGO_URI 
-if (!mongoUri){
-    console.log("MONGO_URI not defined")
-    process.exit(1)
-}
-mongoose.connect(mongoUri).then(()=>{
-    console.log("db connection successful")
+sequelize.authenticate().then(()=>{
+    console.log("Sequelize connection established")
+    sequelize.sync({force:true}).then(()=>{
+        console.log("Sequelize tables synchronized")
+    })
     startServer()
 }).catch((err)=>{
-    console.log("db connection failed")
+    console.log("Sequelize connection failed")
     console.log(err)
 })
 
 // Handling Uncaught Exceptions and Unhandled Rejections
-process.on('uncaughtException', (err:Error) => {
+process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! Shutting down...');
   console.log(err.name, err.message);
   process.exit(1);
 });
-process.on('unhandledRejection', (err:Error) => {
+process.on('unhandledRejection', (err) => {
   console.log('UNHANDLED REJECTION! Shutting down...');
   console.log(err.name, err.message);
   process.exit(1);
@@ -49,5 +47,4 @@ process.on('SIGTERM', () => {
         console.log(err);
         process.exit(1);
     });
-   
 });
