@@ -1,5 +1,7 @@
 const nodemailer = require("nodemailer")
-
+const fs = require('fs')
+const path = require("path")
+const ejs = require('ejs')
 const transporter = nodemailer.createTransport({
   host:"sandbox.smtp.mailtrap.io",
   port:2525,
@@ -9,12 +11,15 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-const sendMail = async(user,subject,html)=>{
+const sendMail = async(user,data,templateName)=>{
+
+    const htmlfile = fs.readFileSync(path.join(__dirname,`../templates/${templateName}.html`),'utf-8')
+    const renderedHtml = ejs.render(htmlfile,data.body) //Using ejs for rendering html with data
     const mailOptions={
         from:process.env.MAILTRAP_SENDER_MAIL,
         to:user.email,
-        subject:subject,
-        text:html
+        subject:data.subject,
+        html:renderedHtml
     }
 
     transporter.sendMail(mailOptions)

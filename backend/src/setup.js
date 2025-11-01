@@ -1,7 +1,7 @@
-const { sequelize } = require('./config/sequelize')
 const dotenv = require('dotenv')
-
 dotenv.config()
+
+const { sequelize } = require('./config/sequelize')
 beforeAll(async () => {
   // Sync all models and create tables
   await sequelize.sync({ force: true });

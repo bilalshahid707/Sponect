@@ -2,6 +2,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 const app = require('./app')
 const {sequelize} = require('./config/sequelize')
+const User = require('./models/user.model')
 
 const startServer = async()=>{
     app.listen(process.env.PORT || 3000,()=>{
@@ -13,16 +14,19 @@ const startServer = async()=>{
     })  
 }
 
-sequelize.authenticate().then(()=>{
-    console.log("Sequelize connection established")
-    sequelize.sync({force:true}).then(()=>{
-        console.log("Sequelize tables synchronized")
-    })
-    startServer()
-}).catch((err)=>{
-    console.log("Sequelize connection failed")
-    console.log(err)
-})
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Sequelize connection established");
+
+    await sequelize.sync({force:true});
+    console.log("Models synchronized");
+
+    startServer();
+  } catch (err) {
+    console.error("Sequelize connection failed:", err);
+  }
+})();
 
 // Handling Uncaught Exceptions and Unhandled Rejections
 process.on('uncaughtException', (err) => {

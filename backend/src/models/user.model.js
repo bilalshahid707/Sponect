@@ -1,7 +1,7 @@
 const {sequelize,DataTypes} = require('../config/sequelize')
 const bcrypt = require("bcryptjs")
 
-const User = sequelize.define('users',{
+const User = sequelize.define('User',{
     id:{
         type:DataTypes.INTEGER,
         allowNull:false,
@@ -57,7 +57,8 @@ const User = sequelize.define('users',{
                 user.password = await bcrypt.hash(user.password,12)
             }
         }
-    }
+    },
+    tableName:'users'
 })
 
 module.exports = User
