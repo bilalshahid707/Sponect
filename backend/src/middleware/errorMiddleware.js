@@ -3,7 +3,7 @@ const AppError = require('../utils/AppError')
 const handleDuplicateFieldsError = (err)=>{
     const key = Object.keys(err.fields)[0]
     const value = err.fields[key]
-
+    
     const msg = `${key}: ${value} already exists`
 
     return new AppError(msg,409)
