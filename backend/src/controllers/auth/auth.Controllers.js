@@ -4,7 +4,6 @@ const catchAsync = require('../../utils/CatchAsync')
 const AppError = require('../../utils/AppError')
 const bcrypt = require('bcryptjs')
 const sendMail = require('../../config/email')
-const welcomeHTML = require('../../templates/htmls/welcome')
 
 const signToken = (user) => {
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRESIN })
@@ -22,7 +21,7 @@ exports.signup = catchAsync(async (req, res) => {
     const newUser = await User.create(req.body)
     const token = signToken(newUser)
 
-    sendMail(newUser,"Welcome To Sponect",welcomeHTML(newUser))
+    sendMail(newUser,"Welcome To Sponect","Welcome")
     res.cookie('jwt',token,cookieOptions)
     res.status(201).json({
         status: "success",

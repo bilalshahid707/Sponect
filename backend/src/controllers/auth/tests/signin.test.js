@@ -1,7 +1,5 @@
 const request = require("supertest")
-const app = require('../app')
-const bcrypt = require("bcryptjs")
-const User = require('../models/user.model')
+const app = require('../../../app')
 
 describe("POST /api/v1/auth/signin", () => {
     it("should return 400 if email or password is missing", async () => {

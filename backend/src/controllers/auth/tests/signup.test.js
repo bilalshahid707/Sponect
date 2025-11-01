@@ -1,7 +1,6 @@
 const request = require("supertest")
-const app = require('../app')
-const bcrypt = require("bcryptjs")
-const User = require('../models/user.model')
+const app = require('../../../app')
+const User = require('../../../models/user.model')
 
 describe("POST /api/v1/auth/signup", () => {
   it("should create a user successfully", async () => {
