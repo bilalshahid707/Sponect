@@ -44,7 +44,9 @@
     "mongodb-memory-server": "^10.2.3",
     "mongoose": "^8.19.0",
     "morgan": "^1.10.1",
+    
     "nodemailer": "^7.0.10",
+
     "nodemon": "^3.1.10",
     "supertest": "^7.1.4",
     "ts-jest": "^29.4.4",
