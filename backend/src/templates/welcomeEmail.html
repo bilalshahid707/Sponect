@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome Email</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Imprima', Arial, sans-serif;
+      background-color: #f3f4f6;
+      color: #111827;
+    }
+    table {
+      border-spacing: 0;
+      width: 100%;
+    }
+    img {
+      border: 0;
+      display: block;
+    }
+    a {
+      text-decoration: none;
+    }
+    .email-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .header {
+      background-color: #111827;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .header img {
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+    }
+    .content {
+      padding: 40px 20px;
+    }
+    .content h1 {
+      font-size: 28px;
+      font-weight: bold;
+      color: #111827;
+      margin-bottom: 20px;
+    }
+    .content p {
+      font-size: 18px;
+      line-height: 27px;
+      margin-bottom: 30px;
+    }
+    .button {
+      display: inline-block;
+      background-color: #3b82f6;
+      color: #ffffff;
+      font-weight: bold;
+      padding: 15px 30px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .button:hover {
+      background-color: #2563eb;
+    }
+    .footer {
+      background-color: #111827;
+      text-align: center;
+      padding: 30px 20px;
+      color: #ffffff;
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .social-icons img {
+      width: 24px;
+      height: 24px;
+      margin: 0 5px;
+    }
+    .divider {
+      border-top: 1px solid #374151;
+      margin: 20px 0;
+    }
+    @media only screen and (max-width: 600px) {
+      .content h1 {
+        font-size: 24px;
+      }
+      .content p {
+        font-size: 16px;
+      }
+      .button {
+        padding: 12px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <table role="presentation" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="center">
+        <table class="email-container" role="presentation" cellspacing="0" cellpadding="0">
+          
+          <!-- Header -->
+          <tr>
+            <td class="header">
+              <img src="" alt="Sponect Logo">
+            </td>
+          </tr>
+          
+          <!-- Content -->
+          <tr>
+            <td class="content">
+              <h1>Welcome, <%= fullName %>!</h1>
+              <p>We're thrilled to have you join <strong>Sponect</strong> – your go-to platform for sponsorship opportunities. Explore, connect, and grow your partnerships seamlessly.</p>
+            </td>
+          </tr>
+          
+          <!-- Footer -->
+          <tr>
+            <td class="footer">
+              <p>Warm regards,<br>Team Sponect</p>
+              <div class="divider"></div>
+              <p style="margin-top:20px; font-size:14px;">© <%=year%> Sponect. All rights reserved.</p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
