@@ -12,20 +12,16 @@ import {
 } from "../imports";
 import { motion } from "motion/react";
 import { useMutation } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 
-export const HomePage: React.FC = () => {
+export const HomePage = () => {
   const API_URL = import.meta.env.VITE_APP_API_URL;
-  
-  interface APIError {
-    status:string,
-    message:string
-  }
+
 
   // Managing how it works section state
   const [translate, setTranslate] = useState("0");
-  const [activeTab, setActiveTab] = useState<"applicant" | "brand">(
+  const [activeTab, setActiveTab] = useState(
     "applicant"
   );
   const steps = activeTab === "applicant" ? applicantSteps : brandSteps;
@@ -46,14 +42,14 @@ export const HomePage: React.FC = () => {
     cheeziousLogo,
   ];
 
-  const [modalMsg,setModalMsg] = useState<string | null>(null)
-  const [alertMsg,setAlertMsg] = useState<string | null>(null)
+  const [modalMsg,setModalMsg] = useState(null)
+  const [alertMsg,setAlertMsg] = useState(null)
 
   const [formData, setFormData] = useState({
     email: "",
   });
 
-  const handleInputChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({
       ...formData,
@@ -62,19 +58,19 @@ export const HomePage: React.FC = () => {
   };
 
   const mutation = useMutation({
-    mutationFn: async (data: { email: string }) => {
+    mutationFn: async (data) => {
       const response = await axios.post(`${API_URL}/waitlist/new-member`, data);
       return response;
     },
     onSuccess:()=>{
       setModalMsg("You have been added to waitlist!")
     },
-    onError:(error:AxiosError<APIError>)=>{
+    onError:(error)=>{
       setAlertMsg(error.response?.data?.message || error.message)
     }
   });
 
-  const handleSubmit = (event:React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     mutation.mutate(formData);
   };

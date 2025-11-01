@@ -8,14 +8,8 @@ import sponsorSignUp from "../assets/sponsor-signup.png"
 import browsePitches from "../assets/browse-pitches.png"
 import sponsorDeal from "../assets/sponsor-deal.png"
 
-type Step = {
-  number: number;
-  name: string;
-  description: string;
-  image: string;
-};
 
-export const applicantSteps: Step[] = [
+export const applicantSteps = [
   {
     number: 1,
     name: "Join the Platform",
@@ -48,7 +42,7 @@ export const applicantSteps: Step[] = [
   }
 ];
 
-export const brandSteps: Step[] = [
+export const brandSteps = [
   {
     number: 1,
     name: "Get Started as a Sponsor",

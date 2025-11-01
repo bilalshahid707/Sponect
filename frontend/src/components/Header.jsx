@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion } from "motion/react";
 
-export const Header: React.FC = () => {
+export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   // Animation variants

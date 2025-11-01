@@ -1,12 +1,11 @@
 import React from 'react'
 import { FadeInWhenVisible } from '../imports'
 import {useForm} from "react-hook-form"
-import type { FieldValues } from 'react-hook-form'
 
-export const LoginPage:React.FC = () => {
+export const LoginPage = () => {
   const  {handleSubmit,register, formState:{errors}} = useForm()
 
-  const onSubmit = (data:FieldValues)=>{
+  const onSubmit = (data)=>{
     console.log(data)
   }
 

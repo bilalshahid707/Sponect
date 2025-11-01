@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-export const Footer: React.FC = () => {
+export const Footer = () => {
   // Container animation (footer slides up on view)
   const containerVariants = {
     hidden: { y: 100, opacity: 0 },

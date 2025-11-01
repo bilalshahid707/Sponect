@@ -1,14 +1,7 @@
 import React from "react";
 import { motion} from "framer-motion";
 
-interface StepCardProps {
-  number: number;
-  name: string;
-  description: string;
-  image: string;
-}
-
-export const StepCard: React.FC<StepCardProps> = ({
+export const StepCard = ({
   number,
   name,
   description,

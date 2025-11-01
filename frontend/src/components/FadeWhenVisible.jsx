@@ -2,14 +2,8 @@
 import { motion } from "framer-motion";
 import React from "react";
 
-interface FadeInProps {
-  children: React.ReactNode;
-  delay?: number;
-  duration?: number;
-  y?: number;
-}
 
-export const FadeInWhenVisible: React.FC<FadeInProps> = ({
+export const FadeInWhenVisible = ({
   children,
   delay = 0,
   duration = 0.5,

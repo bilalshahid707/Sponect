@@ -3,13 +3,9 @@ import Modal from '@mui/material/Modal';
 
 import waitlistSuccess from "../assets/waitlistSuccess.webp"
 
-interface ModalProps{
-    message:string,
-    setModalMsg:React.Dispatch<React.SetStateAction<string | null>>
-}
 
 
-export const InfoModal:React.FC<ModalProps> = ({message,setModalMsg}:ModalProps)=> {
+export const InfoModal = ({message,setModalMsg})=> {
   const [open, setOpen] = useState(true);
   const handleClose = () => {
     setModalMsg(null)

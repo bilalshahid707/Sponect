@@ -2,12 +2,7 @@ import React,{useState} from 'react'
 import Alert from "@mui/material/Alert"
 import Collapse from "@mui/material/Collapse"
 
-interface AlertProps {
-  message:string | null,
-  severity:"error"|"success",
-  setAlertMsg:React.Dispatch<React.SetStateAction<string | null>>
-}
-export const BasicAlert:React.FC<AlertProps> = ({message,severity,setAlertMsg}) => {
+export const BasicAlert = ({message,severity,setAlertMsg}) => {
 
   const [open,setOpen] = useState(true)
   const handleClose = () => {

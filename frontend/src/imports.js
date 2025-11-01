@@ -9,10 +9,9 @@ export {BasicAlert} from "./components/BasicAlert"
 export {HomePage} from './pages/HomePage'
 export {SignupPage} from "./pages/SignupPage"
 export {LoginPage} from "./pages/LoginPage"
-// export * from './pages/Home';
-// export * from './pages/About';
-// export * from './pages/Login';
-// export * from './pages/Register';
+
+// Routes
+export {AllRoutes} from "./routes/AllRoutes"
 
 // Hooks
 // export * from './hooks/useAuth';
