@@ -1,17 +1,18 @@
-import React from "react";
-import { FadeInWhenVisible } from "../imports";
+import { FadeInWhenVisible,BasicAlert , useAuth} from "../imports";
 import {useForm} from "react-hook-form"
 
 export const SignupPage = () => {
-
   const  {handleSubmit,register,formState:{errors}} = useForm()
 
+  const mutation = useAuth("signup")
+
   const onSubmit = (data)=>{
-    console.log(data)
+    mutation.mutate(data)
   }
 
   return (
     <>
+    {/* {alertMsg2 && <BasicAlert setAlertMsg={setAlertMsg2} message={alertMsg2} severity="error"/>} */}
       <section className="section">
 
         <FadeInWhenVisible>
@@ -36,18 +37,18 @@ export const SignupPage = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-md">
                   <div className="form-field">
                     <label className="input-label">Full Name</label>
-                    <div className={`input-field ${errors.name ? 'border-2 border-red-600' : ''}`}>
+                    <div className={`input-field ${errors.fullName ? 'border-2 border-red-600' : ''}`}>
                       <i className="bi bi-person-fill body-text text-dark"></i>
                       <input
                         type="text"
                         className="input text-dark"
                         placeholder="John Doe"
                         autoComplete="name"
-                        {...register('name',{required:true})}
-                        aria-invalid={errors.name ? 'true' : 'false'}
+                        {...register('fullName',{required:true})}
+                        aria-invalid={errors.fullName ? 'true' : 'false'}
                       />
                     </div>
-                    {errors.name?.type === 'required' && <p role="alert" className='text-sm text-red-600'>Full name is required</p>}
+                    {errors.fullName?.type === 'required' && <p role="alert" className='text-sm text-red-600'>Full name is required</p>}
                   </div>
 
                   {/* Email */}
@@ -86,58 +87,56 @@ export const SignupPage = () => {
                     {errors.phone?.type === 'pattern' && <p role="alert" className='text-sm text-red-600'>Enter a valid phone number</p>}
                   </div>
 
-                  {/* Organization Name */}
-                  <div className="form-field">
-                    <label className="input-label">Organization Name</label>
-                    <div className={`input-field ${errors.organization ? 'border-2 border-red-600' : ''}`}>
-                      <i className="bi bi-building body-text text-dark"></i>
-                      <input
-                        type="text"
-                        className="input text-dark"
-                        placeholder="Your Company or Group"
-                        autoComplete="organization"
-                        {...register("organization",{required:true})}
-                        aria-invalid={errors.organization ? 'true' : 'false'}
-                      />
-                    </div>
-                    {errors.organization?.type === 'required' && <p role="alert" className='text-sm text-red-600'>Organization name is required</p>}
-                  </div>
-
-                  {/* Role in Organization */}
-                  <div className="form-field">
-                    <label className="input-label">Your Role</label>
-                    <div className={`input-field ${errors.role ? 'border-2 border-red-600' : ''}`}>
-                      <i className="bi bi-briefcase-fill body-text text-dark"></i>
-                      <input
-                        type="text"
-                        className="input text-dark"
-                        placeholder="e.g., Manager, Recruiter, HR Officer"
-                        {...register("role",{required:true})}
-                        aria-invalid={errors.role ? 'true' : 'false'}
-                      />
-                    </div>
-                    {errors.role?.type === 'required' && <p role="alert" className='text-sm text-red-600'>Role is required</p>}
-                  </div>
-
                   {/* Account Type */}
                   <div className="form-field">
                     <label className="input-label">Registering As</label>
-                    <div className={`input-field ${errors.acountType ? 'border-2 border-red-600' : ''}`}>
+                    <div className={`input-field ${errors.accountType ? 'border-2 border-red-600' : ''}`}>
                       <i className="bi bi-person-badge-fill body-text text-dark"></i>
                       <select
                         className="input text-dark bg-transparent outline-none w-full"
-                        {...register("acountType",{required:true})}
-                        aria-invalid={errors.acountType ? 'true' : 'false'}
+                        {...register("accountType",{required:true})}
+                        aria-invalid={errors.accountType ? 'true' : 'false'}
                       >
                         <option value="" disabled selected>
                           Select account type
                         </option>
                         <option value="applicant">Applicant</option>
-                        <option value="seeker">Seeker</option>
+                        <option value="sponsor">Sponsor</option>
                       </select>
                     </div>
-                    {errors.acountType?.type === 'required' && <p role="alert" className='text-sm text-red-600'>Please select an account type</p>}
+                    {errors.accountType?.type === 'required' && <p role="alert" className='text-sm text-red-600'>Please select an account type</p>}
                   </div>
+
+                  <div className="form-field">
+                    <label className="input-label">Organization Name</label>
+                    <div className={`input-field ${errors.organizationName ? 'border-2 border-red-600' : ''}`}>
+                      <i className="bi bi-envelope-fill body-text text-dark"></i>
+                      <input
+                        type="text"
+                        className="input text-dark"
+                        placeholder="Brew Holdings"
+                        {...register("organizationName",{required:true})}
+                        aria-invalid={errors.organizationName ? 'true' : 'false'}
+                      />
+                    </div>
+                    {errors.email?.type === 'required' && <p role="alert" className='text-sm text-red-600'>Organization Name is required</p>}
+                  </div>
+
+                  <div className="form-field">
+                    <label className="input-label">Your role</label>
+                    <div className={`input-field ${errors.role ? 'border-2 border-red-600' : ''}`}>
+                      <i className="bi bi-envelope-fill body-text text-dark"></i>
+                      <input
+                        type="text"
+                        className="input text-dark"
+                        placeholder="Sponsorships Manager"
+                        {...register("role",{required:true})}
+                        aria-invalid={errors.role ? 'true' : 'false'}
+                      />
+                    </div>
+                    {errors.email?.type === 'required' && <p role="alert" className='text-sm text-red-600'>Role is required</p>}
+                  </div>
+
 
                   {/* Password */}
                   <div className="form-field">
@@ -161,7 +160,8 @@ export const SignupPage = () => {
                       <input
                         type="submit"
                         value="Create Account"
-                        className="btn-primary w-full cursor-pointer"
+                        disabled={mutation.isPending}
+                        className="btn-primary w-full cursor-pointer disabled:bg-primary-light disabled:cursor-not-allowed"
                       />
                     </div>
                   </div>

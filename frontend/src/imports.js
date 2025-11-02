@@ -14,7 +14,7 @@ export {LoginPage} from "./pages/LoginPage"
 export {AllRoutes} from "./routes/AllRoutes"
 
 // Hooks
-// export * from './hooks/useAuth';
+export {useAuth} from './hooks/useAuth';
 // export * from './hooks/useForm';
 // export * from './hooks/useLocalStorage';
 

@@ -1,12 +1,12 @@
 import React from 'react'
-import { FadeInWhenVisible } from '../imports'
+import { FadeInWhenVisible,useAuth } from '../imports'
 import {useForm} from "react-hook-form"
 
 export const LoginPage = () => {
   const  {handleSubmit,register, formState:{errors}} = useForm()
-
+const mutation = useAuth("signin")
   const onSubmit = (data)=>{
-    console.log(data)
+    mutation.mutate(data)
   }
 
   return (

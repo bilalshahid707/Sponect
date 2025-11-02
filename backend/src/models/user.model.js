@@ -31,19 +31,22 @@ const User = sequelize.define('User',{
             isNumeric:true
         }
     },
-    orgName:{
+    accountType:{
+        type:DataTypes.ENUM("applicant","sponsor"),
+        allowNull:false
+    },
+    organizationName:{
         type:DataTypes.STRING,
         allowNull:false,
+        set(value){
+            this.setDataValue('organizationName',value.toLowerCase())
+        }
     },
     role:{
         type:DataTypes.STRING,
         allowNull:false,
-    },
-    accountType:{
-        type:DataTypes.ENUM("applicant","sponsor"),
-        allowNull:false,
         set(value){
-            this.setDataValue('accountType',value.toLowerCase())
+            this.setDataValue('role',value.toLowerCase())
         }
     },
     password:{
