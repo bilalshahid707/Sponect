@@ -101,7 +101,7 @@ html {
 }
 
 .gradient-bg{
-  @apply bg-[radial-gradient(circle_at_top_right,_#3b82f6_0%,_#111827_60%,_#111827_100%)]
+  @apply bg-[radial-gradient(circle_at_top_right,#3b82f6_0%,#111827_60%,#111827_100%)]
 }
 .heading-primary{
   @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight
@@ -124,15 +124,15 @@ html {
 }
 
 .border-accent-shape {
-    @apply absolute rounded-3xl top-[12.5%] right-[12.5%] w-full h-full -z-10;
+  @apply absolute rounded-3xl top-[12.5%] right-[12.5%] w-full h-full -z-10;
 }
 
 .form-field{
-  @apply flex flex-col gap-[var(--space-sm)] w-full
+  @apply flex flex-col gap-(--space-sm) w-full
 }
 
 .input-field{
-  @apply flex items-center rounded-xl pr-[var(--space-sm)] pl-[var(--space-sm)]  bg-white-lighter w-full
+  @apply flex items-center rounded-xl pr-(--space-sm) pl-(--space-sm)  bg-white-lighter w-full
 }
 
 .input-label{
@@ -140,5 +140,5 @@ html {
 }
 
 .input{
-  @apply p-[var(--space-md)] border-none focus:border-none focus:outline-none bg-transparent flex-grow text-sm md:text-lg leading-relaxed
+  @apply p-(--space-md) border-none focus:border-none focus:outline-none bg-transparent grow text-sm md:text-lg leading-relaxed
 }

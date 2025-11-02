@@ -15,16 +15,25 @@ const cookieOptions = {
         Date.now() + Number(process.env.JWT_COOKIE_EXPIRES_IN) * 86400000
     ),
     httpOnly: true,
+    secure:true,
+    sameSite:'none'
 };
 
-exports.signup = catchAsync(async (req, res) => {
+exports.signup = catchAsync(async (req, res,next) => {
     const newUser = await User.create(req.body)
-    const token = signToken(newUser)
 
+    // Preventing token signing on db error
+    if (!newUser){
+        console.log("going back")
+        return next()
+    }
+
+    console.log("I reached here")
+    const token = signToken(newUser)
     sendMail(newUser, {
         subject: "Welcome to Sponect",
         body: {
-            fullName: newUser.name,
+            fullName: newUser.fullName,
             year: new Date().getFullYear()
         }
     }, "welcomeEmail")

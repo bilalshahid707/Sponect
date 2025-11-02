@@ -18,7 +18,6 @@ import axios from "axios";
 export const HomePage = () => {
   const API_URL = import.meta.env.VITE_APP_API_URL;
 
-
   // Managing how it works section state
   const [translate, setTranslate] = useState("0");
   const [activeTab, setActiveTab] = useState(
@@ -83,9 +82,9 @@ export const HomePage = () => {
       {/* Hero Section */}
       <section className="section">
         <div className="container gradient-bg overflow-hidden">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-[var(--space-xl)]">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-(--space-xl)">
             {/* Left Content */}
-            <div className="flex flex-col w-full lg:w-[60%] gap-[var(--space-lg)] text-left">
+            <div className="flex flex-col w-full lg:w-[60%] gap-(--space-lg) text-left">
               <FadeInWhenVisible>
                 <h1 className="heading-primary text-white">
                   Smart Sponsorship Platform in Pakistan
@@ -100,7 +99,7 @@ export const HomePage = () => {
               </FadeInWhenVisible>
 
               <FadeInWhenVisible>
-                <div className="mt-[var(--space-md)] flex justify-center lg:justify-start">
+                <div className="mt-(--space-md) flex justify-center lg:justify-start">
                   <button className="btn-primary">
                     Join the waitlist
                     <ArrowDown className="w-5 h-5" />
@@ -125,10 +124,10 @@ export const HomePage = () => {
       <section className="section">
         <div className="container">
           <FadeInWhenVisible>
-            <h2 className="heading-secondary text-dark">Trusted By</h2>
+            <h2 className="heading-secondary text-dark text-center">Trusted By</h2>
           </FadeInWhenVisible>
 
-          <div className="flex gap-[var(--space-lg)] mt-[var(--space-2xl)] overflow-hidden">
+          <div className="flex gap-(--space-lg) mt-(--space-2xl) overflow-hidden">
             {logos &&
               logos.map((logo, index) => (
                 <motion.div
@@ -142,7 +141,7 @@ export const HomePage = () => {
                 >
                   <div
                     key={index}
-                    className="img-box flex-shrink-0 w-20 h-fit sm:w-32 md:w-48  flex items-center justify-center"
+                    className="img-box shrink-0 w-20 h-fit sm:w-32 md:w-48  flex items-center justify-center"
                   >
                     <img
                       src={logo}
@@ -160,7 +159,7 @@ export const HomePage = () => {
       <section className="section">
         <div className="container">
           <FadeInWhenVisible>
-            <h2 className="heading-secondary text-dark">
+            <h2 className="heading-secondary text-dark text-center">
               How Our Sponsorship Platform in Pakistan Works
             </h2>
           </FadeInWhenVisible>
@@ -170,7 +169,7 @@ export const HomePage = () => {
             {/* Headings */}
 
             <FadeInWhenVisible>
-              <div className="relative flex items-center justify-center gap-[var(--space-xl)] w-max cursor-pointer">
+              <div className="relative flex items-center justify-center gap-(--space-xl) w-max cursor-pointer">
                 <h3
                   onClick={() => {
                     setActiveTab("applicant");
@@ -190,7 +189,7 @@ export const HomePage = () => {
                   For Brands
                 </h3>
 
-                <div className="w-[120%] h-4 border-dark border-2 absolute -bottom-[var(--space-lg)] rounded-full p-[var(--space-sm)] flex items-center">
+                <div className="w-[120%] h-4 border-dark border-2 absolute -bottom-(--space-lg) rounded-full p-(--space-sm) flex items-center">
                   <div
                     className={`w-1/2 h-2 bg-dark rounded-full ${
                       translate === "0" ? "translate-x-0" : "translate-x-full"
@@ -221,13 +220,13 @@ export const HomePage = () => {
       <section className="section">
         <div className="container bg-dark">
           <FadeInWhenVisible>
-            <h2 className="heading-secondary text-white">
+            <h2 className="heading-secondary text-white text-center">
               Be the First to Join the Future of Sponsorships in Pakistan
             </h2>
           </FadeInWhenVisible>
 
           <FadeInWhenVisible>
-            <div className="waitlist-form flex items-center justify-center mt-[var(--space-lg)]">
+            <div className="waitlist-form flex items-center justify-center mt-(--space-lg)">
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 sm:gap-0 w-full max-w-md rounded-2xl overflow-hidden">
                 <input
                   id="email"
@@ -236,11 +235,11 @@ export const HomePage = () => {
                   required
                   onChange={handleInputChange}
                   placeholder="Enter your email"
-                  className="p-[var(--space-md)] rounded-2xl sm:rounded-l-2xl sm:rounded-r-none border-none focus:border-none focus:outline-none bg-white flex-grow"
+                  className="p-(--space-md) rounded-2xl sm:rounded-l-2xl sm:rounded-r-none border-none focus:border-none focus:outline-none bg-white grow"
                 />
                 <button
                   type="submit"
-                  className={`btn-primary sm:!rounded-l-none ${mutation.isPending?"cursor-not-allowed":"cursor-pointer"}`}
+                  className={`btn-primary sm:rounded-l-none! ${mutation.isPending?"cursor-not-allowed":"cursor-pointer"}`}
                   disabled={mutation.isPending}
                   
                 >
