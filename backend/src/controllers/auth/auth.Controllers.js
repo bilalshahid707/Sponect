@@ -1,4 +1,6 @@
 const User = require('../../models/user.model')
+const Sponsor = require('../../models/sponsor.model')
+const Applicant = require('../../models/applicant.model')
 const jwt = require('jsonwebtoken')
 const catchAsync = require('../../utils/CatchAsync')
 const AppError = require('../../utils/AppError')
@@ -15,28 +17,28 @@ const cookieOptions = {
         Date.now() + Number(process.env.JWT_COOKIE_EXPIRES_IN) * 86400000
     ),
     httpOnly: true,
-    secure:true,
-    sameSite:'none'
+    secure: true,
+    sameSite: 'none'
 };
 
-exports.signup = catchAsync(async (req, res,next) => {
-    const newUser = await User.create(req.body)
+exports.signup = catchAsync(async (req, res, next) => {
+    const {fullName,email,phone,accountType,designation,password,organizationName} = req.body
+    const newUser = await User.create({fullName,email,phone,accountType,designation,password})
 
-    // Preventing token signing on db error
-    if (!newUser){
-        console.log("going back")
-        return next()
+    if (accountType==="sponsor"){
+        await Sponsor.create({userId:newUser.id,organizationName:organizationName})
+    }else if (accountType==="applicant"){
+        await Applicant.create({userId:newUser.id,organizationName:organizationName})
     }
-
-    console.log("I reached here")
+    
     const token = signToken(newUser)
-    sendMail(newUser, {
-        subject: "Welcome to Sponect",
-        body: {
-            fullName: newUser.fullName,
-            year: new Date().getFullYear()
-        }
-    }, "welcomeEmail")
+    // sendMail(newUser, {
+    //     subject: "Welcome to Sponect",
+    //     body: {
+    //         fullName: newUser.fullName,
+    //         year: new Date().getFullYear()
+    //     }
+    // }, "welcomeEmail")
 
     res.cookie('jwt', token, cookieOptions)
     res.status(201).json({
@@ -78,3 +80,13 @@ exports.signout = catchAsync(async (req, res, next) => {
     res.cookie('jwt', 'loggedOut', cookieOptions);
     res.status(200).json({ status: 'success' });
 });
+
+exports.getUserData = catchAsync(async (req, res, next) => {
+
+    res.status(200).json({
+        status: "success",
+        data: {
+            user: req.user
+        }
+    })
+})
