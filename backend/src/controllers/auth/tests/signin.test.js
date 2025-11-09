@@ -31,8 +31,8 @@ describe("POST /api/v1/auth/signin", () => {
                 fullName: "Muhammad Bilal",
                 email: "Test@Email.com",
                 phone: "1234567890",
-                orgName: "TestOrg",
-                role: "Developer",
+                orgnanizationName: "TestOrg",
+                designation: "Developer",
                 accountType: "applicant",
                 password: "secure123",
             })
@@ -53,8 +53,8 @@ describe("POST /api/v1/auth/signin", () => {
                 fullName: "Muhammad Bilal",
                 email: "Test@Email.com",
                 phone: "1234567890",
-                orgName: "TestOrg",
-                role: "Developer",
+                orgnanizationName: "TestOrg",
+                designation: "Developer",
                 accountType: "applicant",
                 password: "secure123",
             })

@@ -35,29 +35,27 @@ const User = sequelize.define('User',{
         type:DataTypes.ENUM("applicant","sponsor"),
         allowNull:false
     },
-    organizationName:{
+    designation:{
         type:DataTypes.STRING,
         allowNull:false,
         set(value){
-            this.setDataValue('organizationName',value.toLowerCase())
-        }
-    },
-    role:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        set(value){
-            this.setDataValue('role',value.toLowerCase())
+            this.setDataValue('designation',value.toLowerCase())
         }
     },
     password:{
         type:DataTypes.STRING,
         allowNull:false,
+    },
+    passwordChangedAt:{
+        type:DataTypes.DATE,
+        defaultValue:DataTypes.NOW
     }
 },{
     hooks:{
         async beforeSave(user){
             if (user.changed('password')){
                 user.password = await bcrypt.hash(user.password,12)
+                user.passwordChangedAt = Date.now()
             }
         }
     },

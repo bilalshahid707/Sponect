@@ -10,8 +10,8 @@ describe("POST /api/v1/auth/signup", () => {
         fullName: "Muhammad Bilal",
         email: "Test@Email.com",
         phone: "1234567890",
-        orgName: "TestOrg",
-        role: "Developer",
+        orgnanizationName: "TestOrg",
+        designation: "Developer",
         accountType: "applicant",
         password: "secure123",
       })
@@ -27,26 +27,28 @@ describe("POST /api/v1/auth/signup", () => {
   });
 
   it("should not allow duplicate emails", async () => {
-    await User.create({
-      fullName: "Bilal",
-      email: "bilal@test.com",
-      phone: "1112223333",
-      orgName: "Org1",
-      role: "User",
-      accountType: "applicant",
-      password: "pass1234",
-    });
+    await request(app)
+      .post("/api/v1/auth/signup")
+      .send({
+        fullName: "Muhammad Bilal",
+        email: "Test@Email.com",
+        phone: "1234567890",
+        orgnanizationName: "TestOrg",
+        designation: "Developer",
+        accountType: "applicant",
+        password: "secure123",
+      })
 
     await request(app)
       .post("/api/v1/auth/signup")
       .send({
-        fullName: "Bilal 2",
-        email: "bilal@test.com",
-        phone: "9998887777",
-        orgName: "Org2",
-        role: "Admin",
-        accountType: "sponsor",
-        password: "pass5678",
+        fullName: "Muhammad Bilal",
+        email: "Test@Email.com",
+        phone: "1234567890",
+        orgnanizationName: "TestOrg",
+        designation: "Developer",
+        accountType: "applicant",
+        password: "secure123",
       })
       .expect(409); // duplicate email
   });
@@ -55,13 +57,13 @@ describe("POST /api/v1/auth/signup", () => {
     await request(app)
       .post("/api/v1/auth/signup")
       .send({
-        fullName: "Bilal",
-        email: "invalidEmail",
+        fullName: "Muhammad Bilal",
+        email: "TestEmail.com",
         phone: "1234567890",
-        orgName: "Org",
-        role: "User",
+        orgnanizationName: "TestOrg",
+        designation: "Developer",
         accountType: "applicant",
-        password: "pass123",
+        password: "secure123",
       })
       .expect(400);
   });
@@ -70,13 +72,13 @@ describe("POST /api/v1/auth/signup", () => {
     await request(app)
       .post("/api/v1/auth/signup")
       .send({
-        fullName: "Bilal",
-        email: "bilal2@test.com",
-        phone: "abc123",
-        orgName: "Org",
-        role: "User",
+        fullName: "Muhammad Bilal",
+        email: "Test@Email.com",
+        phone: "123456q890",
+        orgnanizationName: "TestOrg",
+        designation: "Developer",
         accountType: "applicant",
-        password: "pass123",
+        password: "secure123",
       })
       .expect(400);
   });
@@ -85,13 +87,13 @@ describe("POST /api/v1/auth/signup", () => {
     await request(app)
       .post("/api/v1/auth/signup")
       .send({
-        fullName: "Bilal",
-        email: "enum@test.com",
+        fullName: "Muhammad Bilal",
+        email: "Test@Email.com",
         phone: "1234567890",
-        orgName: "Org",
-        role: "User",
-        accountType: "randomType",
-        password: "pass123",
+        orgnanizationName: "TestOrg",
+        designation: "Developer",
+        accountType: "admin",
+        password: "secure123",
       })
       .expect(400);
   });

@@ -19,8 +19,12 @@ const handleValidationError = (err)=>{
     return new AppError(msg,400)
 }
 
+const handleInavlidToken = (err)=>{
+    return new AppError("Invalid Token",400)
+}
 
 const sendErrorDev = (err,req,res,next)=>{
+    console.log(err)
     res.status(err.statusCode).json({
         status:err.status,
         message:err.message,
@@ -30,12 +34,12 @@ const sendErrorDev = (err,req,res,next)=>{
 
 const sendErrorProd = (err,req,res,next)=>{
     if (err.isOperational){
+        
         res.status(err.statusCode).json({
             status:err.status,
             message:err.message
         })
     }else{
-        console.log(err)
         res.status(500).json({
             status:'error',
             message:'something went wrong'
@@ -44,9 +48,9 @@ const sendErrorProd = (err,req,res,next)=>{
 }
 
 const errorMiddleware = (err,req,res,next)=>{
-
     if (err.name==="SequelizeUniqueConstraintError") err=handleDuplicateFieldsError(err)
     if (err.name==="SequelizeValidationError") err=handleValidationError(err)
+    if (err.name==="JsonWebTokenError") err=handleInavlidToken(err)
 
     if (process.env.NODE_ENV==="development"){
         sendErrorDev(err,req,res,next)
