@@ -46,7 +46,7 @@ const Sponsor = sequelize.define(
       allowNull: true,
     },
     profileImage: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSON,
       allowNull: true,
     },
     status: {

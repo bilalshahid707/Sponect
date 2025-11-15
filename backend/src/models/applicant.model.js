@@ -42,7 +42,7 @@ const Applicant = sequelize.define(
             allowNull: true,
         },
         profileImage: {
-            type: DataTypes.BLOB,
+            type: DataTypes.JSON,
             allowNull: true,
         },
     },

@@ -1,65 +1,69 @@
-const {sequelize,DataTypes} = require('../config/sequelize')
+const { sequelize, DataTypes } = require('../config/sequelize')
 const bcrypt = require("bcryptjs")
 
-const User = sequelize.define('User',{
-    id:{
-        type:DataTypes.INTEGER,
-        allowNull:false,
-        primaryKey:true,
-        autoIncrement:true
+const User = sequelize.define('User', {
+    id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
     },
-    fullName:{
-        type:DataTypes.STRING,
-        allowNull:false,
+    fullName: {
+        type: DataTypes.STRING,
+        allowNull: false,
     },
-    email:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        unique:true,
-        set(value){
-            this.setDataValue('email',value.toLowerCase())
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        set(value) {
+            this.setDataValue('email', value.toLowerCase())
         },
-        validate:{
-            isEmail:true
+        validate: {
+            isEmail: true
         }
     },
-    phone:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        unique:true,
-        validate:{
-            isNumeric:true
+    phone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+            isNumeric: true
         }
     },
-    accountType:{
-        type:DataTypes.ENUM("applicant","sponsor"),
-        allowNull:false
+    accountType: {
+        type: DataTypes.ENUM("applicant", "sponsor"),
+        allowNull: false
     },
-    designation:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        set(value){
-            this.setDataValue('designation',value.toLowerCase())
+    designation: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        set(value) {
+            this.setDataValue('designation', value.toLowerCase())
         }
     },
-    password:{
-        type:DataTypes.STRING,
-        allowNull:false,
+    profileImage: {
+        type: DataTypes.JSON,
+        allowNull: true,
     },
-    passwordChangedAt:{
-        type:DataTypes.DATE,
-        defaultValue:DataTypes.NOW
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    passwordChangedAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     }
-},{
-    hooks:{
-        async beforeSave(user){
-            if (user.changed('password')){
-                user.password = await bcrypt.hash(user.password,12)
+}, {
+    hooks: {
+        async beforeSave(user) {
+            if (user.changed('password')) {
+                user.password = await bcrypt.hash(user.password, 12)
                 user.passwordChangedAt = Date.now()
             }
         }
     },
-    tableName:'users'
+    tableName: 'users'
 })
 
 module.exports = User

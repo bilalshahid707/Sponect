@@ -23,13 +23,30 @@ const handleInavlidToken = (err)=>{
     return new AppError("Invalid Token",400)
 }
 
+const handleMulterError = (err)=>{
+    if(err.code==="LIMIT_UNEXPECTED_FILE"){
+        return new AppError("Too many files are uploaded",400)
+    }
+}
+
+
+// Sending Errors
 const sendErrorDev = (err,req,res,next)=>{
-    console.log(err)
-    res.status(err.statusCode).json({
-        status:err.status,
-        message:err.message,
-        error:err
-    })
+    if (err.isOperational){
+        
+        res.status(err.statusCode).json({
+            status:err.status,
+            message:err.message,
+            error:err
+        })
+    }else{
+        console.log(err)
+        res.status(500).json({
+            status:'error',
+            message:'something went wrong',
+            error:err
+        })
+    }
 }
 
 const sendErrorProd = (err,req,res,next)=>{
@@ -51,6 +68,7 @@ const errorMiddleware = (err,req,res,next)=>{
     if (err.name==="SequelizeUniqueConstraintError") err=handleDuplicateFieldsError(err)
     if (err.name==="SequelizeValidationError") err=handleValidationError(err)
     if (err.name==="JsonWebTokenError") err=handleInavlidToken(err)
+    if (err.name==="MulterError") err=handleMulterError(err)
 
     if (process.env.NODE_ENV==="development"){
         sendErrorDev(err,req,res,next)
